@@ -1,0 +1,19 @@
+package com.pushpak.e_cart.service.category;
+
+import java.util.List;
+
+import com.pushpak.e_cart.model.Category;
+
+public interface ICategoryService {
+    Category getCategoryById(Long id);
+
+    Category getCategoryByName(Long id);
+
+    List<Category> getAllCategories(Long id);
+
+    Category addCategory(Category category);
+
+    Category updateCategory(Category category, Long id);
+
+    void deleteCategoryById(Long id);
+}
