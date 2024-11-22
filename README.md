@@ -6,3 +6,4 @@
 3. Get insights about MultipartFile that i have used in IImageService, like what is it and why are we using it.
     > In Spring Boot, we use MultipartFile to send files from a client to a server. [reference](https://stackoverflow.com/questions/44728459/spring-boot-multipartfile-methods).
 4. try understanding how are we saving image(blob) from client to server using  update method.
+5. `Content-Disposition` : [reference](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition)
