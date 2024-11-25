@@ -7,3 +7,17 @@
     > In Spring Boot, we use MultipartFile to send files from a client to a server. [reference](https://stackoverflow.com/questions/44728459/spring-boot-multipartfile-methods).
 4. try understanding how are we saving image(blob) from client to server using  update method.
 5. `Content-Disposition` : [reference](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition)
+
+6. ```-java
+    @RestController
+    @RequiredArgsConstructor
+    @RequestMapping("${api.prefix}/products")
+    public class ProductController {
+        private final IProductService productService;
+    }
+    <!-- i am confused which class's object will be invoked for productService since IProductService is an interface? --> ```
+: In this case DI is used to inject concrete implementation of that interface. In this case it will inject object of `ProductService`. The `@RequiredArgsConstructor` annotation from Lombok generates a constructor with parameters for all final fields (in this case, `productService`). Spring's `@RestController` and dependency injection capabilities will automatically use this constructor to inject the `ProductService` implementation into the `ProductController`.
+using these steps
+1. Component Scanning 
+2. DI 
+3. Bean selection : If there are multiple implementations we then need to use `@Qualifier` to specify which one to inject. 

@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.pushpak.e_cart.exceptions.ProductNotFoundException;
+import com.pushpak.e_cart.exceptions.ResourceNotFoundException;
 import com.pushpak.e_cart.model.Category;
 import com.pushpak.e_cart.model.Product;
 import com.pushpak.e_cart.repository.CategoryRepository;
@@ -51,7 +52,7 @@ public class ProductService implements IProductService {
 
     @Override
     public Product getProductById(Long id) {
-        return productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product not Found"));
+        return productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product not Found"));
     }
 
     @Override
@@ -60,7 +61,7 @@ public class ProductService implements IProductService {
                 .ifPresentOrElse(
                         productRepository::delete,
                         () -> {
-                            throw new ProductNotFoundException("Product not Found");
+                            throw new ResourceNotFoundException("Product not Found");
                         });
     }
 
@@ -69,7 +70,7 @@ public class ProductService implements IProductService {
         return productRepository.findById(productId)
                 .map(existingProduct -> updateExistingProduct(existingProduct, request))
                 .map(productRepository::save)
-                .orElseThrow(() -> new ProductNotFoundException("Product Not Found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Product Not Found"));
     }
 
     private Product updateExistingProduct(Product existingProduct, ProductUpdateRequest request) {
