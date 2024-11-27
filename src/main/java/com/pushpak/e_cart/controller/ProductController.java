@@ -115,12 +115,12 @@ public class ProductController {
     }
 
     @GetMapping("/product/by-productname/get")
-    public ResponseEntity<ApiResponse> getProductsByName(@PathVariable String name) {
+    public ResponseEntity<ApiResponse> getProductsByName(@RequestParam String productName) {
         try {
-            List<Product> products = productService.getProductsByName(name);
+            List<Product> products = productService.getProductsByName(productName);
             if (products.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body(new ApiResponse("No Product found with name : " + name, null));
+                        .body(new ApiResponse("No Product found with name : " + productName, null));
             }
             return ResponseEntity.ok().body(new ApiResponse("successful", products));
         } catch (Exception e) {

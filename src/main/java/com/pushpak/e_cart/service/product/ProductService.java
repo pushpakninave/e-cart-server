@@ -3,9 +3,8 @@ package com.pushpak.e_cart.service.product;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-
-import com.pushpak.e_cart.exceptions.ProductNotFoundException;
 import com.pushpak.e_cart.exceptions.ResourceNotFoundException;
 import com.pushpak.e_cart.model.Category;
 import com.pushpak.e_cart.model.Product;
@@ -13,7 +12,6 @@ import com.pushpak.e_cart.repository.CategoryRepository;
 import com.pushpak.e_cart.repository.ProductRepository;
 import com.pushpak.e_cart.request.AddProductRequest;
 import com.pushpak.e_cart.request.ProductUpdateRequest;
-
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -22,6 +20,7 @@ public class ProductService implements IProductService {
 
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
+    private final ModelMapper modelMapper;
 
     @Override
     public Product addProduct(AddProductRequest request) {
@@ -30,7 +29,7 @@ public class ProductService implements IProductService {
          * if yes, set it as new product with that category
          * if no, save it as new product with new category
          */
-        Category category = Optional.ofNullable(categoryRepository.findbyName(request.getCategory().getName()))
+        Category category = Optional.ofNullable(categoryRepository.findByName(request.getCategory().getName()))
                 .orElseGet(
                         () -> {
                             Category newCategory = new Category(request.getCategory().getName());
@@ -80,7 +79,7 @@ public class ProductService implements IProductService {
         existingProduct.setInventory(request.getInventory());
         existingProduct.setDescription(request.getDescription());
 
-        Category category = categoryRepository.findbyName(request.getCategory().getName());
+        Category category = categoryRepository.findByName(request.getCategory().getName());
         existingProduct.setCategory(category);
         return existingProduct;
     }

@@ -2,6 +2,8 @@ package com.pushpak.e_cart.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +26,7 @@ public class Category {
     private Long id;
     private String name;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "category")
     private List<Product> products;
 

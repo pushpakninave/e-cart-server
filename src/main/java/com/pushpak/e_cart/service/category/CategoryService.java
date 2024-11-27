@@ -50,7 +50,7 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public Category getCategoryByName(String name) {
-        return categoryRepository.findbyName(name);
+        return categoryRepository.findByName(name);
     }
 
     @Override

@@ -21,3 +21,9 @@ using these steps
 1. Component Scanning 
 2. DI 
 3. Bean selection : If there are multiple implementations we then need to use `@Qualifier` to specify which one to inject. 
+7. Run Docker container: `docker run --name container-name -d image-id`
+8. Execute Docker container: `docker exec -it my-mysql-container mysql -uroot -p`
+9. stop Docker container: `docker stop my-mysql-container`
+10. kill Docker container: `docker kill my-mysql-container`
+11. start Docker container: `docker start my-container`
+12. restart Docker container: `docker restart my-container`

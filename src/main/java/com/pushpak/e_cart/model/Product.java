@@ -3,6 +3,8 @@ package com.pushpak.e_cart.model;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -41,6 +43,7 @@ public class Product {
     private int inventory;
     private String description;
 
+    @JsonBackReference
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
     private Category category;
