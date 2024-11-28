@@ -2,6 +2,7 @@ package com.pushpak.e_cart.service.product;
 
 import java.util.List;
 
+import com.pushpak.e_cart.dto.ProductDto;
 import com.pushpak.e_cart.model.Product;
 import com.pushpak.e_cart.request.AddProductRequest;
 import com.pushpak.e_cart.request.ProductUpdateRequest;
@@ -28,4 +29,8 @@ public interface IProductService {
     List<Product> getProductsByBrandAndName(String brand, String name);
 
     Long countProductsByBrandAndName(String brand, String name);
+
+    ProductDto convertToDto(Product product);
+
+    List<ProductDto> getConvertedProducts(List<Product> products);
 }

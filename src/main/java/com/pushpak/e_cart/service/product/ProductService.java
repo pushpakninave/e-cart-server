@@ -5,10 +5,15 @@ import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import com.pushpak.e_cart.dto.ImageDto;
+import com.pushpak.e_cart.dto.ProductDto;
 import com.pushpak.e_cart.exceptions.ResourceNotFoundException;
 import com.pushpak.e_cart.model.Category;
+import com.pushpak.e_cart.model.Image;
 import com.pushpak.e_cart.model.Product;
 import com.pushpak.e_cart.repository.CategoryRepository;
+import com.pushpak.e_cart.repository.ImageRepository;
 import com.pushpak.e_cart.repository.ProductRepository;
 import com.pushpak.e_cart.request.AddProductRequest;
 import com.pushpak.e_cart.request.ProductUpdateRequest;
@@ -20,6 +25,7 @@ public class ProductService implements IProductService {
 
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
+    private final ImageRepository imageRepository;
     private final ModelMapper modelMapper;
 
     @Override
@@ -117,6 +123,22 @@ public class ProductService implements IProductService {
     @Override
     public Long countProductsByBrandAndName(String brand, String name) {
         return productRepository.countByBrandAndName(brand, name);
+    }
+
+    @Override
+    public List<ProductDto> getConvertedProducts(List<Product> products) {
+        return products.stream().map(this::convertToDto).toList();
+    }
+
+    @Override
+    public ProductDto convertToDto(Product product) {
+        ProductDto productDto = modelMapper.map(product, ProductDto.class);
+        List<Image> images = imageRepository.findByProductId(product.getId());
+        List<ImageDto> imageDtos = images.stream()
+                .map(image -> modelMapper.map(image, ImageDto.class))
+                .toList();
+        productDto.setImages(imageDtos);
+        return productDto;
     }
 
 }
